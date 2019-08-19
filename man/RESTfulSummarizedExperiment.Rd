@@ -54,9 +54,9 @@ banoh5 = H5S_dataset2(hsdsCon,"d-435d7ad4-9f13-11e8-92c2-0242ac120021")
 ehub = ExperimentHub::ExperimentHub()
 myfiles <- AnnotationHub::query(ehub , "restfulSEData")
 myfiles[["EH551"]] -> banoSEMeta
-rr = RESTfulSummarizedExperiment(banoSEMeta, banoh5)
-rr
-rr2 = rr[1:4, 1:5] # just modify metadata
-rr2
-assay(rr2) # extract data
+#rr = RESTfulSummarizedExperiment(banoSEMeta, banoh5)
+#rr
+#rr2 = rr[1:4, 1:5] # just modify metadata
+#rr2
+#assay(rr2) # extract data
 }

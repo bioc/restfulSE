@@ -150,7 +150,6 @@ banoSE = ehub[[tag[1]]]
 ds = HSDSArray(endpoint=URL_hsds(),svrtype="hsds",
                  domain="/shared/bioconductor/bano_meQTLex.h5",dsetname="/assay001")
 assays(banoSE) = SimpleList(betas=ds)
-banoSE
 ```
 
 We can update the SummarizedExperiment metadata 
@@ -159,7 +158,7 @@ assay data.  The data are retrieved from the remote server
 with the `assay` method.
 ```{r doba4}
 rbanoSub = banoSE[5:8, c(3:9, 40:50)] 
-assay(rbanoSub) 
+#assay(rbanoSub) 
 ```
 
 ## 10xGenomics examples
@@ -245,7 +244,7 @@ library(restfulSE)
 ehub = ExperimentHub::ExperimentHub()
 tag = names(AnnotationHub::query(ehub, "banoSEMeta"))
 banoSEMeta = ehub[[tag[1]]]
-banoSEMeta
+#banoSEMeta
 ```
 
 The numerical data have been exported using H. Pages' 
