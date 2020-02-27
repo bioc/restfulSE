@@ -4,10 +4,16 @@
 \alias{seByTumor}
 \title{Given a BigQueryConnection to the 2017 GDC-oriented ISB TCGA bigtables, obtain a SummarizedExperiment 'shell' rowData and colData}
 \usage{
-seByTumor(tumorCode = "LUAD", assayTblName = "RNAseq_Gene_Expression",
+seByTumor(
+  tumorCode = "LUAD",
+  assayTblName = "RNAseq_Gene_Expression",
   rdColsToKeep = c("gene_name", "Ensembl_gene_id", "gene_type"),
-  bqConnClinical, bqConnAssay, rowkey = "Ensembl_gene_id",
-  colkey = "case_barcode", assayvbl = "HTSeq__Counts")
+  bqConnClinical,
+  bqConnAssay,
+  rowkey = "Ensembl_gene_id",
+  colkey = "case_barcode",
+  assayvbl = "HTSeq__Counts"
+)
 }
 \arguments{
 \item{tumorCode}{one of the concise TCGA codes in a character string -- not checked, defaults to "LUAD", lung adenocarcinoma}

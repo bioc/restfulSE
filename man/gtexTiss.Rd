@@ -4,8 +4,7 @@
 \alias{gtexTiss}
 \title{Convenience function for access to gene-level GTEx tissues, as quantified in recount}
 \usage{
-gtexTiss(endpoint = URL_hsds(), svrtype = "hsds",
-  dsetname = "/assay001")
+gtexTiss(endpoint = URL_hsds(), svrtype = "hsds", dsetname = "/assay001")
 }
 \arguments{
 \item{endpoint}{endpoint URL of remote server}

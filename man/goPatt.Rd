@@ -4,8 +4,12 @@
 \alias{goPatt}
 \title{Create a data.frame with ENSEMBL and SYMBOL identifiers associated with a GO TERM specified by a regular expression in \code{termPattern}}
 \usage{
-goPatt(termPattern = "neurotro", targets = c("ENSEMBL", "SYMBOL"),
-  organism = "Hs", inst = "eg")
+goPatt(
+  termPattern = "neurotro",
+  targets = c("ENSEMBL", "SYMBOL"),
+  organism = "Hs",
+  inst = "eg"
+)
 }
 \arguments{
 \item{termPattern}{a character string encoding a regular expression to be matched to keys of type TERM in GO.db}

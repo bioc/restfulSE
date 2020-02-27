@@ -4,15 +4,22 @@
 \alias{pancan_SE}
 \title{illustrate DelayedArray assay from BigQuery backend in SummarizedExperiment}
 \usage{
-pancan_SE(bqcon,
+pancan_SE(
+  bqcon,
   colDataTableName = "clinical_PANCAN_patient_with_followup",
   clinVars = basic_clinvars(),
   colDSubjectIdName = "bcr_patient_barcode",
-  colDFilterField = "acronym", colDFilterValue = "BRCA",
-  assayDataTableName = "pancanMiRs_EBadjOnProtocolPlatformWithoutRepsWithUnCorrectMiRs_08_04_16_annot",
-  assayFeatureName = "ID", assaySampleTypeCode = "TP",
-  subjectIDName = "ParticipantBarcode", tumorFieldName = "Study",
-  tumorFieldValue = "BRCA", assayValueFieldName = "miRNAexpr")
+  colDFilterField = "acronym",
+  colDFilterValue = "BRCA",
+ 
+    assayDataTableName = "pancanMiRs_EBadjOnProtocolPlatformWithoutRepsWithUnCorrectMiRs_08_04_16_annot",
+  assayFeatureName = "ID",
+  assaySampleTypeCode = "TP",
+  subjectIDName = "ParticipantBarcode",
+  tumorFieldName = "Study",
+  tumorFieldValue = "BRCA",
+  assayValueFieldName = "miRNAexpr"
+)
 }
 \arguments{
 \item{bqcon}{a BigQueryConnection instance}

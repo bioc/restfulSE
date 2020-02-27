@@ -9,8 +9,7 @@
 \usage{
 \S4method{assayNames}{RESTfulSummarizedExperiment}(x, ...)
 
-\S4method{[}{RESTfulSummarizedExperiment,numeric,numeric,ANY}(x, i, j, ...,
-  drop = FALSE)
+\S4method{[}{RESTfulSummarizedExperiment,numeric,numeric,ANY}(x, i, j, ..., drop = FALSE)
 }
 \arguments{
 \item{x}{instance of RESTfulSummarizedExperiment}

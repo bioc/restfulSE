@@ -1,3 +1,4 @@
+#' DelayedArray bridge
 #' @rawNamespace importClassesFrom("DelayedArray", "DelayedArray")
 #' @importFrom DelayedArray matrixClass
 #' @importFrom S4Vectors new2

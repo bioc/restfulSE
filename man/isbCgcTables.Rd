@@ -4,8 +4,10 @@
 \alias{isbCgcTables}
 \title{List the tables in a selected dataset}
 \usage{
-isbCgcTables(dataset = "TCGA_hg19_data_v0",
-  billing = Sys.getenv("CGC_BILLING"))
+isbCgcTables(
+  dataset = "TCGA_hg19_data_v0",
+  billing = Sys.getenv("CGC_BILLING")
+)
 }
 \arguments{
 \item{dataset}{character string identifying a table in "isb-cgc"}

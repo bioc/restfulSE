@@ -39,7 +39,7 @@ se100k = function(endpoint=URL_hsds(), svrtype="hsds",
   ehub = ExperimentHub::ExperimentHub()
   tag = names(AnnotationHub::query(ehub, "st100k"))
   st100k = ehub[[tag[1]]]
-  assays(st100k) = SimpleList(counts=ds)
+  assays(st100k, withDimnames=FALSE) = SimpleList(counts=ds)
   st100k
 }
 #' @rdname se100k
@@ -57,7 +57,7 @@ se1.3M = function(endpoint=URL_hsds(),svrtype="hsds",
   ehub = ExperimentHub::ExperimentHub()
   tag = names(AnnotationHub::query(ehub, "full_1Mneurons"))
   full_1Mneurons = ehub[[tag[1]]]
-  assays(full_1Mneurons) = SimpleList(counts=ds)
+  assays(full_1Mneurons, withDimnames=FALSE) = SimpleList(counts=ds)
   full_1Mneurons
 }
 
@@ -77,7 +77,7 @@ gtexTiss = function(endpoint=URL_hsds(),svrtype="hsds",
   ehub = ExperimentHub::ExperimentHub()
   tag = names(AnnotationHub::query(ehub, "gtexRecount"))
   gtexTiss = ehub[[tag[1]]]
-  assays(gtexTiss) = SimpleList(recount=ds)
+  assays(gtexTiss, withDimnames=FALSE) = SimpleList(recount=ds)
   gtexTiss
 }
 

@@ -4,10 +4,17 @@
 \alias{BQ3_Source}
 \title{construct a BigQuery resource interface}
 \usage{
-BQ3_Source(bqconn, tblnm = "RNAseq_Gene_Expression",
-  rowkeyfield = "Ensembl_gene_id", colkeyfield = "case_barcode",
-  filtervbl = "project_short_name", filterval = "TCGA-GBM",
-  assayvbl = "HTSeq__Counts", assaysampletype = "TP", maxnrec = Inf)
+BQ3_Source(
+  bqconn,
+  tblnm = "RNAseq_Gene_Expression",
+  rowkeyfield = "Ensembl_gene_id",
+  colkeyfield = "case_barcode",
+  filtervbl = "project_short_name",
+  filterval = "TCGA-GBM",
+  assayvbl = "HTSeq__Counts",
+  assaysampletype = "TP",
+  maxnrec = Inf
+)
 }
 \arguments{
 \item{bqconn}{instance of BigQueryConnection from bigrquery}

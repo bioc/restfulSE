@@ -149,7 +149,7 @@ tag = names(AnnotationHub::query(ehub, "banoSEMeta"))
 banoSE = ehub[[tag[1]]]
 ds = HSDSArray(endpoint=URL_hsds(),svrtype="hsds",
                  domain="/shared/bioconductor/bano_meQTLex.h5",dsetname="/assay001")
-assays(banoSE) = SimpleList(betas=ds)
+assays(banoSE, withDimnames=FALSE) = SimpleList(betas=ds)
 banoSE
 ```
 

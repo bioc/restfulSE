@@ -101,7 +101,7 @@ setMethod("[", c("RESTfulSummarizedExperiment",
 #' @return matrix
 #' @exportMethod assay
 setMethod("assay", c("RESTfulSummarizedExperiment", "missing"), 
-    function(x, i, ...) {
+    function(x, i, withDimnames=TRUE, ...) {
     stopifnot(length(rownames(x))>0)
     stopifnot(length(colnames(x))>0)
     stopifnot(length(setdiff(rownames(x), x@globalDimnames[[1]]))==0)
@@ -141,8 +141,7 @@ setMethod("assay", c("RESTfulSummarizedExperiment", "missing"),
 #' @param withDimnames logical defaults to TRUE
 #' @return at present a SimpleList is returned as a dummy placeholder
 #' @exportMethod assays
-setMethod("assays", c("RESTfulSummarizedExperiment"), function(x, ...,
-   withDimnames=TRUE) {
+setMethod("assays", c("RESTfulSummarizedExperiment"), function(x, withDimnames=TRUE, ...) {
 #   warning("use assay(), only one allowed at present for RESTful SE")
 #   assay(x, ...)  # document properly
    SimpleList("placeholder")

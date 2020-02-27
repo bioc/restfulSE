@@ -4,8 +4,11 @@
 \alias{cgcConn}
 \title{Simplify connection to a BigQuery dataset for the project "isb-cgc"}
 \usage{
-cgcConn(dataset = "TCGA_bioclin_v0", project = "isb-cgc",
-  billing = Sys.getenv("CGC_BILLING"))
+cgcConn(
+  dataset = "TCGA_bioclin_v0",
+  project = "isb-cgc",
+  billing = Sys.getenv("CGC_BILLING")
+)
 }
 \arguments{
 \item{dataset}{character string with dataset name}

@@ -5,11 +5,9 @@
 \alias{se1.3M}
 \title{Convenience functions using HSDS server to extract tenx neurons full or subset data}
 \usage{
-se100k(endpoint = URL_hsds(), svrtype = "hsds",
-  dsetname = "/assay001")
+se100k(endpoint = URL_hsds(), svrtype = "hsds", dsetname = "/assay001")
 
-se1.3M(endpoint = URL_hsds(), svrtype = "hsds",
-  dsetname = "/newassay001")
+se1.3M(endpoint = URL_hsds(), svrtype = "hsds", dsetname = "/newassay001")
 }
 \arguments{
 \item{endpoint}{endpoint URL of remote server}
