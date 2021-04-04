@@ -97,6 +97,7 @@ setMethod("[", c("RESTfulSummarizedExperiment",
 #' @aliases assay,RESTfulSummarizedExperiment,missing-method
 #' @param x instance of RESTfulSummarizedExperiment
 #' @param i not used
+#' @param withDimnames logical(1)
 #' @param \dots not used
 #' @return matrix
 #' @exportMethod assay

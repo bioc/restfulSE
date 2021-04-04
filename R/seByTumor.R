@@ -164,6 +164,7 @@ seByTumor = function(tumorCode = "LUAD",
 #' @importFrom stats as.formula
 #' @param x BQSummarizedExperiment instance
 #' @param i index for retrieval, ignored at present
+#' @param withDimnames logical(1)
 #' @param \dots not used
 #' @note Very experimental approach to retrieving numerical data given
 #' a SummarizedExperiment 'shell'.  We need more checking of
@@ -174,7 +175,7 @@ seByTumor = function(tumorCode = "LUAD",
 #' @return matrix
 #' @exportMethod assay
 setMethod("assay", c("BQSummarizedExperiment", "missing"), 
-  function(x, i, ...) {
+  function(x, i, withDimnames=TRUE, ...) {
   clmax = function(...) suppressWarnings(max(...))
   rd = rowData(x)[,x@rowkey]
   cd = colData(x)[,x@colkey]

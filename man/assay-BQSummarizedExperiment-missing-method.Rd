@@ -11,6 +11,8 @@
 
 \item{i}{index for retrieval, ignored at present}
 
+\item{withDimnames}{logical(1)}
+
 \item{\dots}{not used}
 }
 \value{

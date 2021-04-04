@@ -3,6 +3,8 @@
 #' @importFrom DelayedArray matrixClass
 #' @importFrom S4Vectors new2
 #' @import rlang
+#' @param seed instance of 'array'
+#' @param Class character(1)
 newDA = function (seed = new("array"), Class = "DelayedArray") 
 {
     seed_ndim <- length(dim(seed))
@@ -195,6 +197,7 @@ setAs("BQ3_Array", "BQ3_Matrix", function(from)
    new("BQ3_Matrix", from))
 
 #' constructor
+#' @param seed instance of 'array'
 setMethod("DelayedArray", "BQ3_ArraySeed",
 #   function(seed) DelayedArray:::new_DelayedArray(seed, Class="BQ3_Array"))
    function(seed) newDA(seed, Class="BQ3_Array"))

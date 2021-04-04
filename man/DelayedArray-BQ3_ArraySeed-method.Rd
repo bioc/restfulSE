@@ -6,6 +6,9 @@
 \usage{
 \S4method{DelayedArray}{BQ3_ArraySeed}(seed)
 }
+\arguments{
+\item{seed}{instance of 'array'}
+}
 \description{
 constructor
 }

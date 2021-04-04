@@ -23,6 +23,8 @@ RESTfulSummarizedExperiment(se, source)
 
 \item{i}{not used}
 
+\item{withDimnames}{logical(1)}
+
 \item{\dots}{not used}
 }
 \value{

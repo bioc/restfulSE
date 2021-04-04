@@ -6,6 +6,11 @@
 \usage{
 newDA(seed = new("array"), Class = "DelayedArray")
 }
+\arguments{
+\item{seed}{instance of 'array'}
+
+\item{Class}{character(1)}
+}
 \description{
 DelayedArray bridge
 }
