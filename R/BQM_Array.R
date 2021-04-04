@@ -3,6 +3,7 @@
 # https://github.com/Bioconductor/DelayedArray/blob/master/vignettes/02-Implementing_a_backend.Rmd
 # for BigQuery server back end, table with matrix layout
 #
+
 #' Represent information about a BigQuery resource with a 'triple' database schema.
 #' This is targeting the isb-cgc TCGA layout.
 #' BigQuery Records are regarded as triples, within major groups defined by filtervbl.
@@ -17,6 +18,7 @@ setClass("BQM_Source", representation(
   rowkeyfield = "character",
   allrownames = "character",
   allcolnames = "character"))
+
 setMethod("show", "BQM_Source", function(object) {
  cat(sprintf("BQM_Source for project %s, dataset %s\n",
               object@bqconn@project, object@bqconn@dataset))
@@ -181,18 +183,20 @@ setMethod("extract_array", "BQM_ArraySeed", function(x, index) {
   BQMmatgen(x, index[[1]], index[[2]], maxrow=Inf)
 })
 #  
+
 #' extension of DelayedArray for BigQuery content
-#' @exportClass BQM_Array
+#' @export
 setClass("BQM_Array", contains="DelayedArray")
+
 #' extension of DelayedMatrix for HDF Server content
-#' @exportClass BQM_Matrix
+#' @export
 setClass("BQM_Matrix", contains=c("DelayedMatrix", 
      "BQM_Array"))
 
 setMethod("matrixClass", "BQM_Array", function(x) "BQM_Matrix")
 
 
-#' coerce
+# coercion for remote array to remote matrix
 #' @aliases coerce,BQM_Array,BQM_Matrix-method
 #' @import DelayedArray
 #' @export
@@ -203,6 +207,7 @@ setMethod("DelayedArray", "BQM_ArraySeed",
    function(seed) newDA(seed, Class="BQM_Array"))
 #   function(seed) DelayedArray:::new_DelayedArray(seed, Class="BQM_Array"))
 #
+
 #' create BQM_Array instance given url (filepath) and entity (host) name
 #' @param filepath a BQM_Source instance
 #' @return an instance of \code{\link[DelayedArray]{DelayedArray-class}}

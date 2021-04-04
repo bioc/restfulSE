@@ -3,15 +3,7 @@
 \docType{class}
 \name{BQ3_Source-class}
 \alias{BQ3_Source-class}
-\title{Represent information about a BigQuery resource with a 'triple' database schema.
-This is targeting the isb-cgc TCGA layout.
-BigQuery Records are regarded as triples, within major groups defined by filtervbl.
-Triples have content subject - gene - value, to be pivoted to genes(rows) x 
-subjects(columns) with values as entries.}
+\title{a class for BigQuery tables with keys and filters baked in}
 \description{
-Represent information about a BigQuery resource with a 'triple' database schema.
-This is targeting the isb-cgc TCGA layout.
-BigQuery Records are regarded as triples, within major groups defined by filtervbl.
-Triples have content subject - gene - value, to be pivoted to genes(rows) x 
-subjects(columns) with values as entries.
+a class for BigQuery tables with keys and filters baked in
 }

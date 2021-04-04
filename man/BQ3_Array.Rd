@@ -16,7 +16,7 @@ an instance of \code{\link[DelayedArray]{DelayedArray-class}}
 create BQ3_Array instance given url (filepath) and entity (host) name
 }
 \examples{
-
+#
 # authentication issues may arise.  if you are authorized
 # to use bigquery with GPC project isb-cgc, a token may
 # be generated through the following
