@@ -2,6 +2,7 @@
 #' @rawNamespace importClassesFrom("DelayedArray", "DelayedArray")
 #' @importFrom DelayedArray matrixClass
 #' @importFrom S4Vectors new2
+#' @import rlang
 newDA = function (seed = new("array"), Class = "DelayedArray") 
 {
     seed_ndim <- length(dim(seed))
@@ -15,12 +16,14 @@ newDA = function (seed = new("array"), Class = "DelayedArray")
 # https://github.com/Bioconductor/DelayedArray/blob/master/vignettes/02-Implementing_a_backend.Rmd
 # for BigQuery server back end, table with 'triples'
 #
-#' Represent information about a BigQuery resource with a 'triple' database schema.
-#' This is targeting the isb-cgc TCGA layout.
-#' BigQuery Records are regarded as triples, within major groups defined by filtervbl.
-#' Triples have content subject - gene - value, to be pivoted to genes(rows) x 
-#' subjects(columns) with values as entries.
-#' @importFrom dplyr select_ filter_ group_by_ summarise tbl n select
+# Represent information about a BigQuery resource with a 'triple' database schema.
+# This is targeting the isb-cgc TCGA layout.
+# BigQuery Records are regarded as triples, within major groups defined by filtervbl.
+# Triples have content subject - gene - value, to be pivoted to genes(rows) x 
+# subjects(columns) with values as entries.
+
+#' a class for BigQuery tables with keys and filters baked in
+#' @importFrom dplyr select filter group_by summarise tbl n select
 #' @importFrom Biobase selectSome
 #' @import DelayedArray
 #' @export
@@ -80,23 +83,26 @@ paste("c(", paste0(sQuote(x), collapse = ","), ")", collapse = "")
  options(useFancyQuotes=FALSE)
  if (slot(bqconn, "project") == "pancancer-atlas") {
 
-    ini = bqconn %>% tbl(tblnm) %>% select_(rowkeyfield, filtervbl, 
-        colkeyfield, "SampleTypeLetterCode") %>%
-    filter_(paste(c(filtervbl, "%in%", conc(filterval)), collapse="")) %>%
+    q1 = force(paste(c(filtervbl, "%in%", conc(filterval)), collapse=""))
+    ini = bqconn %>% tbl(tblnm) %>% select(rowkeyfield, filtervbl, 
+        colkeyfield, "SampleTypeLetterCode") 
+    ini %>% filter(rlang::parse_expr(q1)) %>%
        filter(SampleTypeLetterCode == assaysampletype)
 
     } else  {
+  
+    q2 = force(paste(c(filtervbl, "==", sQuote(filterval)), collapse=""))
 
-    ini = bqconn %>% tbl(tblnm) %>% select_(rowkeyfield, filtervbl, 
+    ini = bqconn %>% tbl(tblnm) %>% select(rowkeyfield, filtervbl, 
         colkeyfield) %>%
-    filter_(paste(c(filtervbl, "==", sQuote(filterval)), collapse="")) 
+    filter(rlang::parse_expr(q2))
     
     }
 
  rowdf = ini %>% 
-    select_(rowkeyfield) %>% group_by_(rowkeyfield) %>% summarise(n=n()) %>% as.data.frame(n=maxnrec)
+    select(rowkeyfield) %>% group_by(rlang::parse_expr(rowkeyfield)) %>% summarise(n=n()) %>% as.data.frame(n=maxnrec)
  coldf = ini %>%
-    select_(colkeyfield) %>% group_by_(colkeyfield) %>% summarise(n=n()) %>% as.data.frame(n=maxnrec)
+    select(colkeyfield) %>% group_by(rlang::parse_expr(colkeyfield)) %>% summarise(n=n()) %>% as.data.frame(n=maxnrec)
  colns = coldf[,2]
  ntab = table(colns)
  modal = ntab[which.max(ntab)]
@@ -170,22 +176,25 @@ setMethod("extract_array", "BQ3_ArraySeed", function(x, index) {
 #' extension of DelayedArray for BigQuery content
 #' @exportClass BQ3_Array
 setClass("BQ3_Array", contains="DelayedArray")
+
 #' extension of DelayedMatrix for HDF Server content
 #' @exportClass BQ3_Matrix
 setClass("BQ3_Matrix", contains=c("DelayedMatrix", 
      "BQ3_Array"))
 
+# extension of DelayedMatrix for HDF Server content
+# @export
 setMethod("matrixClass", "BQ3_Array", function(x) "BQ3_Matrix")
 
 
-#' coercion for remote array to remote matrix
-#' @rdname BQ3_Array-class
+# coercion for remote array to remote matrix
 #' @aliases coerce,BQ3_Array,BQ3_Matrix-method
 #' @import DelayedArray
 #' @export
 setAs("BQ3_Array", "BQ3_Matrix", function(from)
    new("BQ3_Matrix", from))
 
+#' constructor
 setMethod("DelayedArray", "BQ3_ArraySeed",
 #   function(seed) DelayedArray:::new_DelayedArray(seed, Class="BQ3_Array"))
    function(seed) newDA(seed, Class="BQ3_Array"))
@@ -194,7 +203,7 @@ setMethod("DelayedArray", "BQ3_ArraySeed",
 #' @param filepath a BQ3_Source instance
 #' @return an instance of \code{\link[DelayedArray]{DelayedArray-class}}
 #' @examples
-#'
+#' #
 #' # authentication issues may arise.  if you are authorized
 #' # to use bigquery with GPC project isb-cgc, a token may
 #' # be generated through the following
@@ -257,24 +266,31 @@ BQ3m2 = function(x, i, j, maxrow=Inf) {
       return(ans)
       }
   options(useFancyQuotes=FALSE)
+  rlpa = function(...) rlang::parse_expr(paste(...))
   isPancan = x@filepath@bqconn@project == "pancancer-atlas"
+  q1 = force(rlpa(c(filtervbl, "==", sQuote(filterval)), collapse="")) # major row confinement
+  fvbl = rlang::sym(filtervbl)
+  fval = filterval
   if (isPancan) {
      df = bqconn %>% tbl(tblnm) %>%   
-       select_(rowkeyfield, colkeyfield, filtervbl, assayvbl, "SampleTypeLetterCode") %>%  # confine columns
-       filter_(paste(c(filtervbl, "==", sQuote(filterval)), collapse="")) # major row confinement
+       select(rowkeyfield, colkeyfield, filtervbl, assayvbl, "SampleTypeLetterCode") %>%  # confine columns
+       filter(fvbl == UQ(fval))
      } else {
      df = bqconn %>% tbl(tblnm) %>%  
-       select_(rowkeyfield, colkeyfield, filtervbl, assayvbl) %>%  # confine columns
-       filter_(paste(c(filtervbl, "==", sQuote(filterval)), collapse="")) # major row confinement
+       select(rowkeyfield, colkeyfield, filtervbl, assayvbl) %>%  # confine columns
+       filter(fvbl == UQ(fval))
      }
-  if (!allcols) df = df %>%
-       filter_(paste(c(colkeyfield, "%in% colsel"), collapse="")) # col confinement
+  if (!allcols) {
+       q2 = force(rlpa(c(colkeyfield, "%in% colsel"), collapse="")) # col confinement
+       df = df %>% filter(rlang::sym(colkeyfield) %in% !!colsel)
+       }
   if (!allrows) {
+       q3 = force(rlpa(c(rowkeyfield, "%in% rowsel"), collapse=""))
        if (isPancan) {
-         df = df %>% filter_(paste(c(rowkeyfield, "%in% rowsel"), collapse="")) %>%
+         df = df %>% filter(rlang::sym(rowkeyfield) %in% !!rowsel) %>%
            filter( SampleTypeLetterCode == assaysampletype ) # minor row confinement
            } else {
-         df = df %>% filter_(paste(c(rowkeyfield, "%in% rowsel"), collapse="")) 
+         df = df %>% filter(rlang::sym(rowkeyfield) %in% !!rowsel)
            }
        }
   df = (df %>% as.data.frame(n=maxrow))

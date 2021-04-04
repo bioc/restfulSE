@@ -192,8 +192,7 @@ setClass("BQM_Matrix", contains=c("DelayedMatrix",
 setMethod("matrixClass", "BQM_Array", function(x) "BQM_Matrix")
 
 
-#' coercion for remote array to remote matrix
-#' @rdname BQM_Array-class
+#' coerce
 #' @aliases coerce,BQM_Array,BQM_Matrix-method
 #' @import DelayedArray
 #' @export
