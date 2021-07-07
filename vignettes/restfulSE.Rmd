@@ -175,10 +175,10 @@ where available; genes reported but without addresses
 are addressed at chr1:2 with width 0.  The rows
 are sorted by genomic address within chromosomes.
 
-```{r gettx}
-tenx100k = se100k()
-tenx100k
-```
+#```{r gettx}
+#tenx100k = se100k()
+#tenx100k
+#```
 
 We will subset genes annotated to hippocampus development.
 Here are some related categories:
