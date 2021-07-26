@@ -197,14 +197,14 @@ Here are some related categories:
 library(org.Mm.eg.db)
 atab = select(org.Mm.eg.db, keys="GO:0021766", keytype="GO", columns="ENSEMBL")
 hg = atab[,"ENSEMBL"]
-length(hgok <- intersect(hg, rownames(tenx100k)))
+#length(hgok <- intersect(hg, rownames(tenx100k)))
 ```
 This is a very scattered collection of rows in the matrix.  We
 acquire expression measures for genes annotated to
 hippocampus on 4000 samples.  t-SNE is then used to project
 the log-transformed measures to the plane.
 ```{r getdat, cache=TRUE}
-hipn = assay(tenx100k[hgok,1:4000])  # slow
+#hipn = assay(tenx100k[hgok,1:4000])  # slow
 #d = dist(t(log(1+hipn)), method="manhattan")
 #proj = Rtsne(d)
 ```
