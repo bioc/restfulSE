@@ -23,19 +23,19 @@ tasicCortex = function() structure(list(SYMBOL = c("Snap25", "Gad1", "Vip", "Sst
 #' @param dsetname complete internal path to dataset in H5 file
 #' @return RESTfulSummarizedExperiment
 #' @examples
-#' ss = se100k()
-#' # get a set of genes from Tasic et al. 2016 Nature Neuroscience
-#' tc = tasicCortex()
-#' adultCort = tc$GENEID
-#' # subset
-#' csums = apply(assay(ss[adultCort,1:500]),1,sum)
-#' names(csums) = tc$SYMBOL
-#' csums
+## ss = se100k()
+# # get a set of genes from Tasic et al. 2016 Nature Neuroscience
+# tc = tasicCortex()
+# adultCort = tc$GENEID
+## subset
+# csums = apply(assay(ss[adultCort,1:500]),1,sum)
+# names(csums) = tc$SYMBOL
+# csums
 #' @export
 se100k = function(endpoint=URL_hsds(), svrtype="hsds",
    dsetname="/assay001") {
   ds = HSDSArray(endpoint=endpoint,svrtype=svrtype,
-                 domain="/home/reshg/tenx_100k_sorted.h5",dsetname=dsetname)
+                 domain="/shared/bioconductor/tenx_100k_sorted.h5",dsetname=dsetname)
   ehub = ExperimentHub::ExperimentHub()
   tag = names(AnnotationHub::query(ehub, "st100k"))
   st100k = ehub[[tag[1]]]

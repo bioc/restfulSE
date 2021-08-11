@@ -16,7 +16,7 @@ setClass("RESTfulSummarizedExperiment",
 #' @examples
 #' require("rhdf5client")
 #' hsds = H5S_source(serverURL=URL_hsds())
-#' hsdsCon = setPath(hsds,"/home/reshg/bano_meQTLex.h5")
+#' hsdsCon = setPath(hsds,"/shared/bioconductor/bano_meQTLex.h5")
 #' fetchDatasets(hsdsCon)
 #' banoh5 = H5S_dataset2(hsdsCon,"d-435d7ad4-9f13-11e8-92c2-0242ac120021")
 #' ehub = ExperimentHub::ExperimentHub()
