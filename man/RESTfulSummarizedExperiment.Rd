@@ -49,9 +49,9 @@ about length(setdiff(*names(x), x@globalDimnames[[...]])).
 \examples{
 require("rhdf5client")
 hsds = H5S_source(serverURL=URL_hsds())
-hsdsCon = setPath(hsds,"/home/reshg/bano_meQTLex.h5")
-fetchDatasets(hsdsCon)
-banoh5 = H5S_dataset2(hsdsCon,"d-435d7ad4-9f13-11e8-92c2-0242ac120021")
+hsdsCon = setPath(hsds,"/shared/bioconductor/bano_meQTLex.h5")
+fetchDatasets(hsdsCon) 
+banoh5 = H5S_dataset2(hsdsCon,"d-3ac1ab59-672d1634-7880-3f2f37-c09c9d")
 ehub = ExperimentHub::ExperimentHub()
 myfiles <- AnnotationHub::query(ehub , "restfulSEData")
 myfiles[["EH551"]] -> banoSEMeta
