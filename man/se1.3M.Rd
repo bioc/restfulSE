@@ -25,9 +25,4 @@ Convenience functions using HSDS server to extract tenx neurons full or subset d
 \note{
 se1.3M provides access to the full 1.3 million neurons
 with features in their order as given in the original HDF5
-<<<<<<< HEAD:man/se100k.Rd
-while se100k provides access to only 100k neurons with
-expression features sorted by genomic location
-=======
->>>>>>> 716fa6d2ee787b56e9a3fd0a88150590f66af2aa:man/se1.3M.Rd
 }
