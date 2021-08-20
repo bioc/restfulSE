@@ -144,10 +144,11 @@ setMethod("assay", c("RESTfulSummarizedExperiment", "missing"),
 #' @return at present a SimpleList is returned as a dummy placeholder
 #' @exportMethod assays
 setMethod("assays", c("RESTfulSummarizedExperiment"), function(x, withDimnames=TRUE, ...) {
-#   warning("use assay(), only one allowed at present for RESTful SE")
-#   assay(x, ...)  # document properly
-   SimpleList("placeholder")
+  #   warning("use assay(), only one allowed at present for RESTful SE")
+  #   assay(x, ...)  # document properly
+  SimpleList("placeholder")
 })
+
  
 
 #' Dimension access for RESTfulSummarizedExperiment
