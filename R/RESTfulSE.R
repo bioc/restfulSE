@@ -135,7 +135,7 @@ setMethod("assay", c("RESTfulSummarizedExperiment", "missing"),
     ans
 })
 
-#' Assays access for RESTfulSummarizedExperiment
+# Assays access for RESTfulSummarizedExperiment
 #' @importFrom S4Vectors SimpleList
 #' @param x instance of RESTfulSummarizedExperiment
 #' @param \dots not used

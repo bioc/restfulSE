@@ -30,13 +30,3 @@ with features in their order as given in the original HDF5
 while se100k provides access to only 100k neurons with
 expression features sorted by genomic location
 }
-\examples{
-ss = se100k()
-# get a set of genes from Tasic et al. 2016 Nature Neuroscience
-tc = tasicCortex()
-adultCort = tc$GENEID
-# subset
-csums = apply(assay(ss[adultCort,1:500]),1,sum)
-names(csums) = tc$SYMBOL
-csums
-}
