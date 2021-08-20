@@ -169,16 +169,7 @@ assay(rbanoSub)
 We have used Martin Morgan's TENxGenomics package
 to create a dense HDF5 representation of the 
 assay data, and placed it on the `bigec2` server.
-The metadata are available as `se100k` in this package;
-we have used EnsDb.Mmusculus.v79 to supply gene ranges
-where available; genes reported but without addresses
-are addressed at chr1:2 with width 0.  The rows
-are sorted by genomic address within chromosomes.
 
-#```{r gettx}
-#tenx100k = se100k()
-#tenx100k
-#```
 
 We will subset genes annotated to hippocampus development.
 Here are some related categories:
