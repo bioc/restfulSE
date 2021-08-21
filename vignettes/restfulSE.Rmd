@@ -169,16 +169,6 @@ assay(rbanoSub)
 We have used Martin Morgan's TENxGenomics package
 to create a dense HDF5 representation of the 
 assay data, and placed it on the `bigec2` server.
-The metadata are available as `se100k` in this package;
-we have used EnsDb.Mmusculus.v79 to supply gene ranges
-where available; genes reported but without addresses
-are addressed at chr1:2 with width 0.  The rows
-are sorted by genomic address within chromosomes.
-
-#```{r gettx}
-#tenx100k = se100k()
-#tenx100k
-#```
 
 We will subset genes annotated to hippocampus development.
 Here are some related categories:
@@ -193,16 +183,19 @@ Here are some related categories:
 42398 GO:1990026            hippocampal mossy fiber expansion
 ```
 
-```{r anno}
-library(org.Mm.eg.db)
-atab = select(org.Mm.eg.db, keys="GO:0021766", keytype="GO", columns="ENSEMBL")
-hg = atab[,"ENSEMBL"]
+
+#```{r anno}
+#ibrary(org.Mm.eg.db)
+#atab = select(org.Mm.eg.db, keys="GO:0021766", keytype="GO", columns="ENSEMBL")
+#hg = atab[,"ENSEMBL"]
 #length(hgok <- intersect(hg, rownames(tenx100k)))
-```
+#```
+
 This is a very scattered collection of rows in the matrix.  We
 acquire expression measures for genes annotated to
 hippocampus on 4000 samples.  t-SNE is then used to project
 the log-transformed measures to the plane.
+
 ```{r getdat, cache=TRUE}
 #hipn = assay(tenx100k[hgok,1:4000])  # slow
 #d = dist(t(log(1+hipn)), method="manhattan")

@@ -22,32 +22,21 @@ tasicCortex = function() structure(list(SYMBOL = c("Snap25", "Gad1", "Vip", "Sst
 #' @param svrtype type of server, must be either 'hsds' or 'h5serv'
 #' @param dsetname complete internal path to dataset in H5 file
 #' @return RESTfulSummarizedExperiment
-#' @examples
-## ss = se100k()
-# # get a set of genes from Tasic et al. 2016 Nature Neuroscience
-# tc = tasicCortex()
-# adultCort = tc$GENEID
-## subset
-# csums = apply(assay(ss[adultCort,1:500]),1,sum)
-# names(csums) = tc$SYMBOL
-# csums
-#' @export
-se100k = function(endpoint=URL_hsds(), svrtype="hsds",
-   dsetname="/assay001") {
-  ds = HSDSArray(endpoint=endpoint,svrtype=svrtype,
-                 domain="/shared/bioconductor/tenx_100k_sorted.h5",dsetname=dsetname)
-  ehub = ExperimentHub::ExperimentHub()
-  tag = names(AnnotationHub::query(ehub, "st100k"))
-  st100k = ehub[[tag[1]]]
-  assays(st100k, withDimnames=FALSE) = SimpleList(counts=ds)
-  st100k
-}
-#' @rdname se100k
-#' @aliases se1.3M
+
+##@examples
+## ss = se1.3M()
+## # get a set of genes from Tasic et al. 2016 Nature Neuroscience
+## tc = tasicCortex()
+## adultCort = tc$GENEID
+## # subset
+## csums = apply(assay(ss[adultCort,1:500]),1,sum)
+## names(csums) = tc$SYMBOL
+##csums
+
+#' single-cell RNA-seq data from TENx, 1.3mm neurons
+#' @rdname se1.3M
 #' @note se1.3M provides access to the full 1.3 million neurons
 #' with features in their order as given in the original HDF5
-#' while se100k provides access to only 100k neurons with
-#' expression features sorted by genomic location
 #' @return SummarizedExperiment instance
 #' @export
 se1.3M = function(endpoint=URL_hsds(),svrtype="hsds",
