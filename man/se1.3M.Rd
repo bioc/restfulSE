@@ -11,12 +11,10 @@ se1.3M(endpoint = URL_hsds(), svrtype = "hsds", dsetname = "/newassay001")
 
 \item{svrtype}{type of server, must be either 'hsds' or 'h5serv'}
 
-\item{dsetname}{complete internal path to dataset in H5 file}
+\item{dsetname}{complete internal path to dataset in H5 file
+single-cell RNA-seq data from TENx, 1.3mm neurons}
 }
 \value{
-RESTfulSummarizedExperiment
-single-cell RNA-seq data from TENx, 1.3mm neurons
-
 SummarizedExperiment instance
 }
 \description{

@@ -21,7 +21,6 @@ tasicCortex = function() structure(list(SYMBOL = c("Snap25", "Gad1", "Vip", "Sst
 #' @param endpoint endpoint URL of remote server
 #' @param svrtype type of server, must be either 'hsds' or 'h5serv'
 #' @param dsetname complete internal path to dataset in H5 file
-#' @return RESTfulSummarizedExperiment
 
 ##@examples
 ## ss = se1.3M()
