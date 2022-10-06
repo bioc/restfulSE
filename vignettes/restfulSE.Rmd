@@ -1,7 +1,6 @@
 ---
 title: "restfulSE -- experiments with HDF5 server content wrapped in SummarizedExperiment"
-author: "Vincent J. Carey, stvjc at channing.harvard.edu, Shweta Gopaulakrishnan, reshg at channing.harvard.edu, Samuela Pollack, spollack at jimmy.harvard.edu"
-date: "`r format(Sys.time(), '%B %d, %Y')`"
+author: "Vincent J. Carey, stvjc at channing.harvard.edu, Shweta Gopaulakrishnan, reshg at channing.harvard.edu, includes contributions from S. Pollack"
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{restfulSE -- experiments with SE interface to remote HDF5}
@@ -32,12 +31,11 @@ library(AnnotationHub)
 This R package includes proof-of-concept code illustrating several approaches to SummarizedExperiment design with
 assays stored out-of-memory.
 
-## HDF5 server backed SummarizedExperiment
+## HSDS-backed SummarizedExperiment
 
-[HDF Server](https://support.hdfgroup.org/projects/hdfserver/) "extends the HDF5 data model to efficiently store large data objects (e.g. up to multi-TB data arrays) and access them over the web using a RESTful API."  In this `restfulSE` package,
-several data structures are introduced 
+Several data structures are introduced 
 
-- to model the server data architecture and 
+- to model the HDF Scalable Data Service (HSDS) server data architecture and 
 - to perform targeted extraction of numerical data from HDF5 arrays stored on the server. 
 
 We work with HDF Object store (https://www.hdfgroup.org/solutions/hdf-cloud/). 
@@ -168,7 +166,7 @@ assay(rbanoSub)
 
 We have used Martin Morgan's TENxGenomics package
 to create a dense HDF5 representation of the 
-assay data, and placed it on the `bigec2` server.
+assay data, and placed it in HSDS.
 
 We will subset genes annotated to hippocampus development.
 Here are some related categories:
@@ -184,25 +182,29 @@ Here are some related categories:
 ```
 
 
-#```{r anno}
-#ibrary(org.Mm.eg.db)
-#atab = select(org.Mm.eg.db, keys="GO:0021766", keytype="GO", columns="ENSEMBL")
-#hg = atab[,"ENSEMBL"]
-#length(hgok <- intersect(hg, rownames(tenx100k)))
-#```
+Oct 2022: Following code needs revision.
+```{r anno,eval=FALSE}
+library(org.Mm.eg.db)
+atab = select(org.Mm.eg.db, keys="GO:0021766", keytype="GO", columns="ENSEMBL")
+hg = atab[,"ENSEMBL"]
+ehub = ExperimentHub::ExperimentHub()
+lkst100k = AnnotationHub::query(ehub, "st100k")
+tenx100k = ehub[[names(lkst100k)]]
+length(hgok <- intersect(hg, rownames(tenx100k)))
+```
 
 This is a very scattered collection of rows in the matrix.  We
 acquire expression measures for genes annotated to
 hippocampus on 4000 samples.  t-SNE is then used to project
 the log-transformed measures to the plane.
 
-```{r getdat, cache=TRUE}
-#hipn = assay(tenx100k[hgok,1:4000])  # slow
-#d = dist(t(log(1+hipn)), method="manhattan")
-#proj = Rtsne(d)
+```{r getdat, cache=FALSE,eval=FALSE}
+hipn = assay(tenx100k[hgok,1:4000])  # slow
+d = dist(t(log(1+hipn)), method="manhattan")
+proj = Rtsne(d)
 ```
-```{r plt,fig=TRUE}
-#plot(proj$Y)
+```{r plt,fig=FALSE,eval=FALSE}
+plot(proj$Y)
 ```
 
 ### A set of genes related to the visual cortex
@@ -234,7 +236,6 @@ assembled on 64 samples of immortalized B-cells from the YRI HapMap cohort.
 
 ```{r lkd}
 library(restfulSE)
-#data("banoSEMeta", package = "restfulSEData")
 ehub = ExperimentHub::ExperimentHub()
 tag = names(AnnotationHub::query(ehub, "banoSEMeta"))
 banoSEMeta = ehub[[tag[1]]]
@@ -244,8 +245,8 @@ banoSEMeta
 The numerical data have been exported using H. Pages' 
 saveHDF5SummarizedExperiment applied to the banovichSE
 SummarizedExperiment in the yriMulti package.  The HDF5
-component is simply copied into the server data space
-on the remote server.  
+component is imported to HSDS with the hsload utility
+disributed with the python package h5pyd.
 
 
 
