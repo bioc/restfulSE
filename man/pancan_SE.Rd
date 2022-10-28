@@ -11,8 +11,8 @@ pancan_SE(
   colDSubjectIdName = "bcr_patient_barcode",
   colDFilterField = "acronym",
   colDFilterValue = "BRCA",
- 
-    assayDataTableName = "pancanMiRs_EBadjOnProtocolPlatformWithoutRepsWithUnCorrectMiRs_08_04_16_annot",
+  assayDataTableName =
+    "pancanMiRs_EBadjOnProtocolPlatformWithoutRepsWithUnCorrectMiRs_08_04_16_annot",
   assayFeatureName = "ID",
   assaySampleTypeCode = "TP",
   subjectIDName = "ParticipantBarcode",

@@ -16,7 +16,6 @@ tasicCortex = function() structure(list(SYMBOL = c("Snap25", "Gad1", "Vip", "Sst
 #' @rawNamespace import(rhdf5client, except = groups)
 #' @importFrom utils data
 #' @importFrom AnnotationDbi keys
-#' @importFrom rhdf5client H5S_Array
 #' @importFrom S4Vectors SimpleList
 #' @param endpoint endpoint URL of remote server
 #' @param svrtype type of server, must be either 'hsds' or 'h5serv'
